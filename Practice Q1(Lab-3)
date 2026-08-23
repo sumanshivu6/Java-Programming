@@ -1,0 +1,27 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Reading the integer input
+        int number = scanner.nextInt();
+        
+        try {
+            // Explicitly checking for zero to handle the ArithmeticException test case
+            if (number == 0) {
+                throw new ArithmeticException("/ by zero");
+            }
+            
+            // Calculating the reciprocal
+            double reciprocal = 1.0 / number;
+            System.out.println("Reciprocal = " + reciprocal);
+            
+        } catch (ArithmeticException e) {
+            // Catching the exception and printing the required output
+            System.out.println("ArithmeticException");
+        }
+        
+        scanner.close();
+    }
+}
