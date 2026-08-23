@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+// Step 1: Create a user-defined exception class extending Exception
+class LowBalanceException extends Exception {
+    public LowBalanceException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Reading the account balance input
+        double balance = scanner.nextDouble();
+        
+        try {
+            // Step 2: Check if balance is less than 1000
+            if (balance < 1000) {
+                throw new LowBalanceException("LowBalanceException");
+            }
+            
+            // If valid
+            System.out.println("Valid Balance");
+            
+        } catch (LowBalanceException e) {
+            // Step 3: Catch the user-defined exception and print its name/message
+            System.out.println(e.getMessage());
+        }
+        
+        scanner.close();
+    }
+}
