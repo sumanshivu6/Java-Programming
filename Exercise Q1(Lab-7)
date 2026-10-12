@@ -1,0 +1,79 @@
+
+import java.io.*;
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("File Uploaded");
+    }
+}
+
+class Backup implements Runnable {
+    String file;
+
+    Backup(String file) {
+        this.file = file;
+    }
+
+    public void run() {
+        try {
+            if (file.endsWith(".txt")) {
+                FileReader r = new FileReader(file);
+                FileWriter w = new FileWriter("backup_" + file);
+
+                int ch;
+                while ((ch = r.read()) != -1) {
+                    w.write(ch);
+                }
+
+                r.close();
+                w.close();
+
+                System.out.println("Text File Copied Successfully");
+            } else {
+                FileInputStream r = new FileInputStream(file);
+                FileOutputStream w =
+                    new FileOutputStream("backup_" + file);
+
+                int b;
+                while ((b = r.read()) != -1) {
+                    w.write(b);
+                }
+
+                r.close();
+                w.close();
+
+                System.out.println("Image File Copied Successfully");
+            }
+        } catch (Exception e) {
+            System.out.println("File Not Found Exception");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Please provide a file name");
+            return;
+        }
+
+        String file = args[0];
+        File f = new File(file);
+
+        if (!f.exists()) {
+            System.out.println("File Not Found Exception");
+        } else if (f.length() <= 0) {
+            System.out.println("File must be greater than 0");
+        } else if (!(file.endsWith(".jpg") ||
+                     file.endsWith(".png") ||
+                     file.endsWith(".txt"))) {
+            System.out.println("Unsupported File Type");
+        } else {
+            MyThread u = new MyThread();
+            Thread b = new Thread(new Backup(file));
+
+            u.start();
+            b.start();
+        }
+    }
+}
