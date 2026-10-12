@@ -1,0 +1,42 @@
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<String> products = new ArrayList<>();
+        Queue<String> orders = new LinkedList<>();
+        Stack<String> cancelled = new Stack<>();
+        Hashtable<String, String> suppliers = new Hashtable<>();
+        Vector<String> archived = new Vector<>();
+
+        // Add Product
+        products.add("P101-Laptop");
+        System.out.println("Product Added Successfully");
+
+        // Place Order
+        orders.add("O201");
+        System.out.println("Order Added to Queue");
+
+        // Cancel Order
+        String order = orders.remove();
+        cancelled.push(order);
+        System.out.println("Order Moved to Stack");
+
+        // Add Supplier
+        suppliers.put("S101", "ABC Suppliers");
+
+        // Search Suppliers
+        System.out.println("Supplier Details: " + suppliers.get("S101"));
+
+        // Archive Product
+        archived.add(products.get(0));
+
+        // Display All Information
+        System.out.println("\nProducts: " + products);
+        System.out.println("Pending Orders: " + orders);
+        System.out.println("Cancelled Order: " + cancelled);
+        System.out.println("Suppliers: " + suppliers);
+        System.out.println("Archived Products: " + archived);
+    }
+}
