@@ -1,0 +1,48 @@
+import java.util.Scanner;
+
+class DailyLimitExceededException extends Exception {
+    DailyLimitExceededException(String msg) {
+        super(msg);
+    }
+}
+
+class Bank {
+    static void withdraw(double balance, double amount)
+            throws DailyLimitExceededException {
+
+        if (amount <= 0)
+            throw new IllegalArgumentException("Invalid Amount Exception");
+
+        if (amount > balance)
+            throw new ArithmeticException("Insufficient Balance Exception");
+
+        if (amount > 20000)
+            throw new DailyLimitExceededException("DailyLimitExceededException");
+
+        System.out.println("Transaction Successful");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            double balance = sc.nextDouble();
+            double amount = sc.nextDouble();
+
+            Bank.withdraw(balance, amount);
+        }
+        catch (DailyLimitExceededException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
+        }
+
+        sc.close();
+    }
+}
